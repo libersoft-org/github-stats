@@ -1,7 +1,7 @@
 # TODO
 
 - load image based on GET parameters
-- make description
+- make bio on more lines
 - add icons for each stat (stars, commits etc.)
 - create image generator for repos too (not just user)
 - add dark mode
