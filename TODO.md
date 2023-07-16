@@ -2,7 +2,7 @@
 
 - load image based on GET parameters
 - make bio on more lines
-- add some colours
+- add some text colours
 - add icons for each stat (stars, commits etc.)
 - create image generator for repos too (not just user)
 - add dark mode
