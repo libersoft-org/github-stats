@@ -1,6 +1,6 @@
 # GitHub Stats
 
-This software is made in [**Node.js**](https://nodejs.org) that generates GitHub stats image for GitHub user and its repositories.
+This software is made in [**Node.js**](https://nodejs.org). It generates GitHub stats image for GitHub user and its repositories.
 
 ## Screenshots
 
