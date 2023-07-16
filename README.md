@@ -9,8 +9,10 @@ This software is made in [**Node.js**](https://nodejs.org). It generates GitHub 
 ## Installation instructions
 
 ```sh
-apt install git https://github.com/libersoft-org/github-stats.git
-git clone 
+apt update
+apt -y upgrade
+apt install git
+git clone https://github.com/libersoft-org/github-stats.git
 cd github-stats/src
 npm i
 node app.js
