@@ -1,0 +1,6 @@
+src/node_modules/
+src/font/
+src/*.log
+src/package-lock.json
+.git/
+.secret_git

@@ -1,0 +1,4 @@
+{
+ "log_to_file": true,
+ "log_file": "app.log"
+}
