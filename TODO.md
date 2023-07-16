@@ -5,6 +5,7 @@
 - add icons for each stat (stars, commits etc.)
 - create image generator for repos too (not just user)
 - add dark mode
+- add github logo (already in img)
 - README.md - add new routes, describe usage (explain GET parameters etc.), add screenshots
 - add a possibility to run in unix socket
 - add unix socket installation instructions in README
