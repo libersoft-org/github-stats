@@ -11,3 +11,4 @@
 - add unix socket installation instructions in README
 - add "github-stats-server-screen.sh" and "github-stats-socket-screen.sh" scripts
 - make animations to animated GIF
+- add custom colours
