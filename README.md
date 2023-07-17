@@ -15,14 +15,30 @@ apt install git
 git clone https://github.com/libersoft-org/github-stats.git
 cd github-stats/src
 npm i
-node app.js
+```
+Run the application using:
+
+```sh
+node github-stats.js
+```
+
+or run it in screen as web server:
+
+```sh
+./run-webserver-screen.sh
+```
+
+or run it in screen as unix socket:
+
+```sh
+./run-webserver-screen.sh
 ```
 
 Then load the webpage: **http://your_server:3000/image**
 
 ## License
 
-- This software is developed under the license named [**Unlicense**](./LICENSE).
+- This software is developed under [**Unlicense**](./LICENSE).
 
 ## Developer
 This software is developed by [**Liberland Software Foundation**](https://libersoft.org) - the first non-profit organization founded in [**Liberland**](https://liberland.org), dedicated to developing an innovative open source software.

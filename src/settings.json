@@ -1,4 +1,4 @@
 {
- "log_to_file": true,
- "log_file": "app.log"
+ "log_to_file": false,
+ "log_file": "github-stats.log"
 }
