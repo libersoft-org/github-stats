@@ -11,7 +11,7 @@
 - README.md - add new routes, describe usage (explain GET parameters etc.), add screenshots
 - add a possibility to run in unix socket
 - add unix socket installation instructions in README
-- add "github-stats-server-screen.sh" and "github-stats-socket-screen.sh" scripts
+- add "run-webserver-screen.sh" and "run-socket-screen.sh" scripts
 - make animations to animated GIF
 - add custom colours option
 - add different size options
