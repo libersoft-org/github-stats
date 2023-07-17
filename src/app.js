@@ -74,84 +74,77 @@ async function getJSON(url) {
 };
 
 async function createImage(req, res, info) {
- const header = { text: info.name, fontName: fonts['bold'].name, fontSize: 20 };
+ const title = { text: info.name, fontName: fonts['bold'].name, fontSize: 20 };
+ const bio = { text: info.bio, fontName: fonts['regular'].name, fontSize: 14 };
  const lines = [
-  { text: info.bio, fontName: fonts['regular'].name, fontSize: 14 },
-  { text: info.login, fontName: fonts['regular'].name, fontSize: 18 },
-  { text: info.public_repos + ' repos', fontName: fonts['regular'].name, fontSize: 18 },
-  { text: info.public_gists + ' gists', fontName: fonts['regular'].name, fontSize: 18 },
-  { text: info.followers + ' followers', fontName: fonts['regular'].name, fontSize: 18 },
-  { text: info.following + ' following', fontName: fonts['regular'].name, fontSize: 18 },
-  { text: 'Created: ' + new Date(info.created_at).toLocaleDateString(), fontName: fonts['regular'].name, fontSize: 16 },
+  { label: 'Name', text: info.login, fontName: fonts['regular'].name, fontSize: 18 },
+  { label: 'Repositories', text: info.public_repos, fontName: fonts['regular'].name, fontSize: 18 },
+  { label: 'Gists', text: info.public_gists, fontName: fonts['regular'].name, fontSize: 18 },
+  { label: 'Followers', text: info.followers, fontName: fonts['regular'].name, fontSize: 18 },
+  { label: 'Following', text: info.following, fontName: fonts['regular'].name, fontSize: 18 },
+  { label: 'Created', text: new Date(info.created_at).toLocaleDateString(), fontName: fonts['regular'].name, fontSize: 16 },
  ];
 
- const titlePadding = 10;
- const avatarSize = 48;
- const linePadding = 10;
- const lineSpacing = 20;
+ const avatarPadding = 15;
+ const avatarSize = 64;
+ const linePadding = 100;
+ const lineSpacing = 10;
  const totalWidth = 512;
- const offsetLeft = 10;
- let totalHeight = (2 * titlePadding) + avatarSize + (2 * linePadding);
+ let totalHeight = (2 * avatarPadding) + avatarSize;
  for (let i = 0; i < lines.length; i++) {
   if (lines[i].text != null) totalHeight += lines[i].fontSize + (i < lines.length - 1 ? lineSpacing : 0);
  }
  const can = canvas.createCanvas(totalWidth, totalHeight);
  const ctx = can.getContext('2d');
 
- // Window header
- const radius = 10;
- const topHeight = (2 * titlePadding) + avatarSize;
- ctx.fillStyle = '#A0A0A0';
- ctx.beginPath();
- ctx.moveTo(radius, 0);
- ctx.arcTo(totalWidth, 0, totalWidth, topHeight, Math.min(radius, topHeight));
- ctx.lineTo(totalWidth, topHeight);
- ctx.lineTo(0, topHeight);
- ctx.arcTo(0, 0, radius, 0, Math.min(radius, topHeight));
- ctx.closePath();
- ctx.fill();
- 
- // Window body
- ctx.fillStyle = '#C0C0C0';
- ctx.beginPath();
- ctx.moveTo(0, topHeight);
- ctx.lineTo(totalWidth, topHeight);
- ctx.lineTo(totalWidth, totalHeight - radius);
- ctx.arcTo(totalWidth, totalHeight, totalWidth - radius, totalHeight, radius);
- ctx.lineTo(radius, totalHeight);
- ctx.arcTo(0, totalHeight, 0, totalHeight - radius, radius);
- ctx.lineTo(0, topHeight);
- ctx.closePath();
- ctx.fill();
-
  // Avatar
+ const avatarX = can.width / 2 - avatarSize / 2;
  const img = await canvas.loadImage(info.avatar_url);
  const imgRadius = avatarSize / 2;
  ctx.save();
  ctx.beginPath();
- ctx.arc(offsetLeft + imgRadius, titlePadding + imgRadius, imgRadius, 0, Math.PI * 2, true);
+ ctx.arc(avatarX + imgRadius, avatarPadding + imgRadius, imgRadius, 0, Math.PI * 2, true);
  ctx.closePath();
  ctx.clip();
- ctx.drawImage(img, offsetLeft, titlePadding, avatarSize, avatarSize);
+ ctx.drawImage(img, avatarX, avatarPadding, avatarSize, avatarSize);
  ctx.restore();
  ctx.beginPath();
- ctx.arc(offsetLeft + imgRadius, titlePadding + imgRadius, imgRadius, 0, Math.PI * 2, true);
+ ctx.arc(avatarX + imgRadius, avatarPadding + imgRadius, imgRadius, 0, Math.PI * 2, true);
  ctx.lineWidth = 1;
  ctx.strokeStyle = '#000000';
  ctx.stroke();
- 
+
+ // Line
+ let currentHeight = (2 * avatarPadding) + avatarSize;
+ ctx.lineWidth = 2;
+ ctx.strokeStyle = '#808080';
+ ctx.beginPath();
+ ctx.moveTo(20, currentHeight);
+ ctx.lineTo(can.width - 20, currentHeight);
+ ctx.stroke();
+
  // Title
- ctx.font = header.fontSize + 'px ' + header.fontName;
+ currentHeight += title.fontSize + avatarPadding;
+ ctx.textAlign = 'center';
+ ctx.font = title.fontSize + 'px ' + title.fontName;
  ctx.fillStyle = '#000000';
- ctx.fillText(header.text, offsetLeft + avatarSize + 10, titlePadding + (avatarSize / 2) + (header.fontSize / 2));
- 
+ ctx.fillText(title.text, can.width / 2, currentHeight);
+
+ // Bio
+ currentHeight += bio.fontSize + avatarPadding;
+ ctx.textAlign = 'center';
+ ctx.font = bio.fontSize + 'px ' + bio.fontName;
+ let bioHeight = wrapText(ctx, info.bio, can.width / 2, currentHeight, can.width - 100, 15);
+
  // Lines
- let currentHeight = (2 * titlePadding) + avatarSize + linePadding;
+ currentHeight += avatarPadding;
+ ctx.textAlign = 'left';
  for (let i = 0; i < lines.length; i++) {
   if (lines[i].text != null) {
    currentHeight += lines[i].fontSize;
    ctx.font = lines[i].fontSize + 'px ' + lines[i].fontName;
-   ctx.fillText(lines[i].text, offsetLeft, currentHeight);
+   ctx.fillText(lines[i].label + ':', can.width / 2 - 150, currentHeight);
+   ctx.fillText(lines[i].text, can.width / 2 + 50, currentHeight);
    currentHeight += lineSpacing;
   }
  };
@@ -180,6 +173,23 @@ function createEmptyImage(req, res) {
  ctx.fillText(text, padding, (can.height / 2) + (padding / 2));
  res.type('png');
  can.createPNGStream().pipe(res);
+}
+
+function wrapText(context, text, x, y, maxWidth, lineHeight) {
+ let words = text.split(' ');
+ let line = '';
+ for (let i = 0; i < words.length; i++) {
+  let testLine = line + words[i] + ' ';
+  let metrics = context.measureText(testLine);
+  let testWidth = metrics.width;
+  if (testWidth > maxWidth && i > 0) {
+   context.fillText(line, x, y);
+   line = words[i] + ' ';
+   y += lineHeight;
+  } else line = testLine;
+ }
+ context.fillText(line, x, y);
+ return y;
 }
 
 function loadSettings(file) {
