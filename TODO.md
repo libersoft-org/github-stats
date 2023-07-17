@@ -15,4 +15,4 @@
 - make animations to animated GIF
 - add custom colours option
 - add different size options
-- add some graphs (by time)
+- add some graphs (stars etc.)
