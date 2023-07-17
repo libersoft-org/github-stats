@@ -1,5 +1,6 @@
 # TODO
 
+- API caching (1 hour?)
 - load image based on GET parameters
 - make bio on more lines
 - add some text colours
@@ -14,3 +15,4 @@
 - make animations to animated GIF
 - add custom colours option
 - add different size options
+- add some graphs (by time)
