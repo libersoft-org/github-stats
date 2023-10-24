@@ -15,3 +15,18 @@
 - make animations to animated GIF
 - add some graphs (stars etc.)
 - add a static page with form for image generation link
+
+# Inspiration:
+
+## Design:
+
+- https://raw.githubusercontent.com/fuyutarow/github-readme-stats-extension/alpha/images/screenshot.png
+- https://i.stack.imgur.com/V4GNd.jpg
+- https://github.com/brunobritodev/awesome-github-stats#-themes
+- https://uploads.sitepoint.com/wp-content/uploads/2021/12/1638982036github-stats.png
+- https://repository-images.githubusercontent.com/318728787/8575c7ed-3dfe-4db8-873d-d45b42fe4ca1
+
+## API:
+
+- https://api.github.com/repos/libersoft-org/email-sender
+- https://api.github.com/users/libersoft-org
